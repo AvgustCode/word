@@ -1,0 +1,72 @@
+body {
+    font-family: 'Roboto', sans-serif; /* Шрифт Roboto */
+    background-color: #121212;
+    color: #ffffff;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    text-align: center;
+    color: #f0f0f0;
+    font-weight: 500; /* Жирный шрифт для заголовка */
+    font-size: 2.5em; /* Увеличен размер заголовка */
+    margin-bottom: 20px; /* Добавлен отступ снизу */
+}
+
+.word-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px; /* Увеличены отступы для удобства */
+    border-bottom: 1px solid #333;
+    transition: background-color 0.3s; /* Добавлен эффект при наведении */
+}
+
+.word-item:hover {
+    background-color: #2a2a2a; /* Цвет фона при наведении */
+}
+
+.word-item:last-child {
+    border-bottom: none;
+}
+
+strong {
+    color: #00c3ff; /* Цвет для английских слов */
+    font-size: 1.2em; /* Увеличен размер шрифта для слов */
+}
+
+em {
+    color: #d8cb12; /* Цвет для транскрипций */
+    font-size: 1.1em; /* Увеличен размер шрифта для транскрипций */
+}
+
+/* Медиа-запрос для мобильных устройств */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em; /* Уменьшен размер заголовка на мобильных */
+    }
+
+    .word-item {
+        flex-direction: column; /* Изменен порядок для меньших экранов */
+        align-items: flex-start; /* Выравнивание по левому краю */
+        padding: 10px 15px; /* Увеличены отступы для удобства */
+    }
+
+    strong {
+        font-size: 1.5em; /* Увеличен размер шрифта для слов на мобильных */
+    }
+
+    em {
+        font-size: 1.5em; /* Увеличен размер шрифта для транскрипций на мобильных */
+    }
+}
+
