@@ -24,7 +24,7 @@ h1 {
 }
 
 .word-item {
-    display: flex;
+    display: flex; /* Используем flexbox для выстраивания в строку */
     justify-content: space-between;
     padding: 15px; /* Увеличены отступы для удобства */
     border-bottom: 1px solid #333;
@@ -49,6 +49,21 @@ em {
     font-size: 1.1em; /* Увеличен размер шрифта для транскрипций */
 }
 
+input[type="text"] {
+    width: 100%; /* Занимает всю ширину контейнера */
+    padding: 10px; /* Отступ внутри поля */
+    margin-bottom: 20px; /* Отступ снизу */
+    border: 1px solid #333; /* Цвет границы */
+    border-radius: 4px; /* Закругленные углы */
+    background-color: #2a2a2a; /* Цвет фона */
+    color: #ffffff; /* Цвет текста */
+    font-size: 1em; /* Размер шрифта */
+}
+
+input[type="text"]::placeholder {
+    color: #888; /* Цвет текста плейсхолдера */
+}
+
 /* Медиа-запрос для мобильных устройств */
 @media (max-width: 600px) {
     h1 {
@@ -56,9 +71,8 @@ em {
     }
 
     .word-item {
-        flex-direction: column; /* Изменен порядок для меньших экранов */
-        align-items: flex-start; /* Выравнивание по левому краю */
-        padding: 10px 15px; /* Увеличены отступы для удобства */
+        /* Убираем flex-direction: column; чтобы слова оставались в строке */
+        padding: 15px 15px; /* Уменьшены отступы для удобства */
     }
 
     strong {
@@ -66,7 +80,7 @@ em {
     }
 
     em {
-        font-size: 1.5em; /* Увеличен размер шрифта для транскрипций на мобильных */
+        font-size: 0.9em; /* Увеличен размер шрифта для транскрипций на мобильных */
     }
 }
 
