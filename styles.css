@@ -83,7 +83,7 @@ h1 {
 /* Стили лицевой стороны карточки */
 .card-front {
     /* Белый фон */
-    background-image: url('img/Frame 53.png');
+    background-image: url('Frame 53.png');
     /* Темный цвет текста */
     color: #333;
 }
@@ -111,7 +111,7 @@ h1 {
     width: 100%;
     height: 100%;
     /* Путь к вашему изображению */
-    background-image: url('img/1.jpg');
+    background-image: url('1.jpg');
     /* Масштабирование изображения с сохранением пропорций */
     background-size: cover;
     /* Позиционирование изображения по центру */
