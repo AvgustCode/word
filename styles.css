@@ -1,209 +1,98 @@
-/* Основные стили для body */
+/* Основные стили */
 body {
-    /* Шрифт для всей страницы */
     font-family: Arial, sans-serif;
-    /* Флекс-контейнер с вертикальным расположением элементов */
     display: flex;
-    /* Элементы располагаются в колонку */
     flex-direction: column;
-    /* Выравнивание по центру по горизонтали */
     align-items: center;
-    /* Цвет фона страницы */
     background-color: #050505;
-    /* Внутренние отступы */
     padding: 20px;
+    color: white;
 }
 
-/* Стили для заголовка h1 */
 h1 {
-    /* Цвет текста */
-    color: #333;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+/* Стили для панели управления */
+.controls {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.control-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.control-btn:hover {
+    background-color: #45a049;
 }
 
 /* Контейнер для карточек */
 .cards-container {
-    /* Флекс-контейнер */
     display: flex;
-    /* Перенос карточек на новую строку при нехватке места */
     flex-wrap: wrap;
-    /* Выравнивание по центру */
     justify-content: center;
-    /* Расстояние между карточками */
     gap: 15px;
-    /* Максимальная ширина контейнера */
     max-width: 1600px;
 }
 
-/* Стили отдельной карточки */
+/* Стили карточки */
 .card {
-    /* Ширина карточки */
     width: 200px;
-    /* Высота карточки */
     height: 250px;
-    /* Позиционирование для дочерних элементов */
     position: relative;
-    /* Сохранение 3D-пространства для анимации */
     transform-style: preserve-3d;
-    /* Плавная анимация переворота */
-    transition: transform 1.6s;
-    /* Курсор в виде указателя */
+    transition: transform 0.6s;
     cursor: pointer;
 }
 
-/* Стили для перевернутой карточки */
 .card.flipped {
-    /* Анимация переворота на 180 градусов */
     transform: rotateY(180deg);
 }
 
-/* Стили для обеих сторон карточки */
 .card-face {
-    /* Абсолютное позиционирование */
     position: absolute;
-    /* Ширина 100% от родителя */
     width: 100%;
-    /* Высота 100% от родителя */
     height: 100%;
-    /* Скрытие обратной стороны при перевороте */
     backface-visibility: hidden;
-    /* Скругление углов */
     border-radius: 10px;
-    /* Флекс-контейнер */
     display: flex;
-    /* Выравнивание по центру по горизонтали */
     justify-content: center;
-    /* Выравнивание по центру по вертикали */
     align-items: center;
-    /* Размер шрифта */
-    font-size: 24px;
-    /* Тень */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Стили лицевой стороны карточки */
 .card-front {
-    /* Белый фон */
-    background-image: url('Frame 53.png');
-    /* Темный цвет текста */
-    color: #333;
+    background-color: #333;
+    color: white;
+    font-size: 24px;
 }
 
 .card-back {
-    /* Убираем цветной фон и градиент */
-    background: none;
-    /* Белый цвет текста (если будет текст) */
-    color: white;
-    /* Изначально перевернута на 180 градусов */
+    background: rgba(0, 0, 0, 0.7);
     transform: rotateY(180deg);
-    /* Добавляем возможность позиционирования внутренних элементов */
-    position: relative;
-    /* Скрываем overflow чтобы изображение не выходило за границы */
     overflow: hidden;
+    position: relative;
 }
 
-/* Новый стиль для фонового изображения карточки */
-.card-back::before {
-    content: '';
-    /* Абсолютное позиционирование */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Путь к вашему изображению */
-    background-image: url('1.jpg');
-    /* Масштабирование изображения с сохранением пропорций */
-    background-size: cover;
-    /* Позиционирование изображения по центру */
-    background-position: center;
-    /* Затемнение изображения для лучшей видимости кнопок */
-    filter: brightness(0.7);
-    /* z-index чтобы было под кнопками */
+.card-back img {
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+    border-radius: 8px;
+    position: relative;
     z-index: 1;
 }
 
-/* Стили для изображения внутри карточки */
-.card img {
-    /* Ширина 90% от карточки */
-    width: 90%;
-    /* Высота 90% от карточки */
-    height: 90%;
-    /* Сохранение пропорций изображения */
-    object-fit: cover;
-    /* Скругление углов */
-    border-radius: 8px;
-}
-
-/* Стили модального окна */
-.modal {
-    /* Изначально скрыто */
-    display: none;
-    /* Фиксированное позиционирование */
-    position: fixed;
-    /* Позиционирование сверху */
-    top: 0;
-    /* Позиционирование слева */
-    left: 0;
-    /* Ширина на весь экран */
-    width: 100%;
-    /* Высота на весь экран */
-    height: 100%;
-    /* Полупрозрачный черный фон */
-    background-color: rgba(0, 0, 0, 0.7);
-    /* Высокий z-index для отображения поверх других элементов */
-    z-index: 1000;
-    /* Флекс-контейнер */
-    display: flex;
-    /* Выравнивание по центру */
-    justify-content: center;
-    align-items: center;
-}
-
-/* Стили содержимого модального окна */
-.modal-content {
-    /* Белый фон */
-    background: rgb(255, 255, 255);
-    /* Внутренние отступы */
-    padding: 20px;
-    /* Скругление углов */
-    border-radius: 10px;
-    /* Максимальная ширина */
-    max-width: 100%;
-    /* Максимальная высота */
-    max-height: 100%;
-    /* Выравнивание текста по центру */
-    text-align: center;
-    /* Относительное позиционирование */
-    position: relative;
-}
-
-/* Стили изображения в модальном окне */
-.modal-content img {
-    /* Максимальная ширина */
-    max-width: 100%;
-    /* Максимальная высота */
-    max-height: 70vh;
-    /* Сохранение пропорций */
-    object-fit: contain;
-}
-
-/* Стили кнопки закрытия модального окна */
-.close-btn {
-    /* Абсолютное позиционирование */
-    position: absolute;
-    /* Отступ сверху */
-    top: 10px;
-    /* Отступ справа */
-    right: 10px;
-    /* Размер шрифта */
-    font-size: 24px;
-    /* Курсор в виде указателя */
-    cursor: pointer;
-    /* Цвет текста */
-    color: #333;
-}
-
-/* Контейнер для кнопок на карточке */
+/* Кнопки на карточке */
 .card-buttons {
     position: absolute;
     bottom: 10px;
@@ -211,59 +100,84 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 10px;
-    /* Увеличиваем z-index чтобы кнопки были поверх изображения */
-    z-index: 3;
+    z-index: 2;
 }
 
-/* Базовые стили кнопок */
 .card-btn {
-    /* Внутренние отступы */
     padding: 5px 10px;
-    /* Без рамки */
     border: none;
-    /* Скругление углов */
     border-radius: 5px;
-    /* Курсор в виде указателя */
     cursor: pointer;
-    /* Размер шрифта */
     font-size: 12px;
-    /* Плавное изменение прозрачности */
-    transition: opacity 0.9s;
+    transition: opacity 0.3s;
 }
 
-/* Эффект при наведении на кнопку */
 .card-btn:hover {
-    /* Уменьшение прозрачности */
     opacity: 0.8;
 }
 
-/* Стили кнопки увеличения */
 .card-btn-zoom {
-    /* Зеленый фон */
     background-color: #4CAF50;
-    /* Белый текст */
     color: white;
 }
 
-/* Стили кнопки закрытия */
 .card-btn-close {
-    /* Красный фон */
     background-color: #f44336;
-    /* Белый текст */
     color: white;
 }
 
-/* Затемнение фона обратной стороны карточки */
-.card-back {
-    /* Градиент с затемнением поверх зеленого фона */
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #4CAF50;
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
 }
 
-.card-back img {
+.modal-content {
+    background: #111;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 90%;
+    max-height: 90%;
+    text-align: center;
     position: relative;
-    z-index: 2;
-    width: 90%;
-    height: 90%;
-    object-fit: cover;
-    border-radius: 8px;
+}
+
+.modal-content img {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+    .card {
+        width: 150px;
+        height: 200px;
+    }
+    
+    .controls {
+        flex-direction: column;
+        width: 80%;
+    }
+    
+    .control-btn {
+        width: 100%;
+    }
 }

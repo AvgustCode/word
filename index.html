@@ -3,19 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Карточки с кнопками</title>
+    <title>Интерактивные карточки</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Карточки с изображениями</h1>
+    <div class="controls">
+        <button id="open-all" class="control-btn">Открыть все</button>
+        <button id="close-all" class="control-btn">Закрыть все</button>
+    </div>
     <div class="cards-container">
-        <!-- Карточки генерируются через JS -->
+        <!-- Карточки будут генерироваться через JS -->
     </div>
     
-    <!-- Модальное окно -->
-    <div class="modal" id="modal">
+    <!-- Модальное окно для увеличенного изображения -->
+    <div class="modal" id="modal" aria-hidden="true">
         <div class="modal-content">
-            <span class="close-btn">&times;</span>
+            <span class="close-btn" role="button" aria-label="Закрыть окно">&times;</span>
             <img id="modal-image" src="" alt="Увеличенное изображение">
         </div>
     </div>

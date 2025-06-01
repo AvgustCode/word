@@ -1,105 +1,56 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Элементы DOM
     const cardsContainer = document.querySelector('.cards-container');
     const modal = document.getElementById('modal');
     const modalImage = document.getElementById('modal-image');
     const closeBtn = document.querySelector('.close-btn');
+    const openAllBtn = document.getElementById('open-all');
+    const closeAllBtn = document.getElementById('close-all');
     
-    const images = [
-        [
-    'photo_1_2025-05-28_01-06-56.jpg',
-    'photo_2_2025-05-28_01-06-56.jpg',
-    'photo_3_2025-05-28_01-06-56.jpg',
-    'photo_4_2025-05-28_01-06-56.jpg',
-    'photo_5_2025-05-28_01-06-56.jpg',
-    'photo_6_2025-05-28_01-06-56.jpg',
-    'photo_7_2025-05-28_01-06-56.jpg',
-    'photo_8_2025-05-28_01-06-56.jpg',
-    'photo_9_2025-05-28_01-06-56.jpg',
-    'photo_10_2025-05-28_01-06-56.jpg',
-    'photo_11_2025-05-28_01-06-56.jpg',
-    'photo_12_2025-05-28_01-06-56.jpg',
-    'photo_13_2025-05-28_01-06-56.jpg',
-    'photo_14_2025-05-28_01-06-56.jpg',
-    'photo_15_2025-05-28_01-06-56.jpg',
-    'photo_16_2025-05-28_01-06-56.jpg',
-    'photo_17_2025-05-28_01-06-56.jpg',
-    'photo_18_2025-05-28_01-06-56.jpg',
-    'photo_19_2025-05-28_01-06-56.jpg',
-    'photo_20_2025-05-28_01-06-56.jpg',
-    'photo_21_2025-05-28_01-06-56.jpg',
-    'photo_22_2025-05-28_01-06-56.jpg',
-    'photo_23_2025-05-28_01-06-56.jpg',
-    'photo_24_2025-05-28_01-06-56.jpg',
-    'photo_25_2025-05-28_01-06-56.jpg',
-    'photo_26_2025-05-28_01-06-56.jpg',
-    'photo_27_2025-05-28_01-06-56.jpg',
-    'photo_28_2025-05-28_01-06-56.jpg',
-    'photo_29_2025-05-28_01-06-56.jpg',
-    'photo_30_2025-05-28_01-06-56.jpg',
-    'photo_31_2025-05-28_01-06-56.jpg',
-    'photo_32_2025-05-28_01-06-56.jpg',
-    'photo_33_2025-05-28_01-06-56.jpg',
-    'photo_34_2025-05-28_01-06-56.jpg',
-    'photo_35_2025-05-28_01-06-56.jpg',
-    'photo_36_2025-05-28_01-06-56.jpg',
-    'photo_37_2025-05-28_01-06-56.jpg',
-    'photo_38_2025-05-28_01-06-56.jpg',
-    'photo_39_2025-05-28_01-06-56.jpg',
-    'photo_40_2025-05-28_01-06-56.jpg',
-    'photo_41_2025-05-28_01-06-56.jpg',
-    'photo_42_2025-05-28_01-06-56.jpg',
-    'photo_43_2025-05-28_01-06-56.jpg',
-    'photo_44_2025-05-28_01-06-56.jpg',
-    'photo_45_2025-05-28_01-06-56.jpg',
-    'photo_46_2025-05-28_01-06-56.jpg',
-    'photo_47_2025-05-28_01-06-56.jpg',
-    'photo_48_2025-05-28_01-06-56.jpg',
-    'photo_49_2025-05-28_01-06-56.jpg',
-    'photo_50_2025-05-28_01-06-56.jpg',
-    'photo_51_2025-05-28_01-06-56.jpg',
-    'photo_52_2025-05-28_01-06-56.jpg',
-    'photo_53_2025-05-28_01-06-56.jpg',
-    'photo_54_2025-05-28_01-06-56.jpg',
-    'photo_55_2025-05-28_01-06-56.jpg',
-    'photo_56_2025-05-28_01-06-56.jpg',
-    'photo_57_2025-05-28_01-06-56.jpg',
-    'photo_58_2025-05-28_01-06-56.jpg',
-    'photo_59_2025-05-28_01-06-56.jpg',
-    'photo_60_2025-05-28_01-06-56.jpg'
-]
-
-    // Создаем карточки
+    // Генерация путей к изображениям
+    const images = Array.from({length: 100}, (_, i) => `photo_${i+1}_2025-06-02_00-26-16.jpg`);
+    
+    
+    // Массив для хранения созданных карточек
+    const cardElements = [];
+    
+    // Создание карточек
     images.forEach((img, index) => {
         const card = document.createElement('div');
         card.classList.add('card');
         card.dataset.index = index;
+        cardElements.push(card);
 
+        // Лицевая сторона
         const front = document.createElement('div');
         front.classList.add('card-face', 'card-front');
         front.textContent = '?';
 
+        // Обратная сторона
         const back = document.createElement('div');
         back.classList.add('card-face', 'card-back');
         
         const image = document.createElement('img');
         image.src = img;
+        image.alt = `Изображение ${index + 1}`;
         back.appendChild(image);
 
-        // Контейнер для кнопок
+        // Кнопки управления
         const buttonsDiv = document.createElement('div');
         buttonsDiv.classList.add('card-buttons');
 
-        // Кнопка "Увеличить"
+        // Кнопка увеличения
         const zoomBtn = document.createElement('button');
         zoomBtn.classList.add('card-btn', 'card-btn-zoom');
         zoomBtn.textContent = 'Увеличить';
         zoomBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Предотвращаем переворот карточки
+            e.stopPropagation();
             modalImage.src = img;
+            modalImage.alt = `Увеличенное изображение ${index + 1}`;
             modal.style.display = 'flex';
         });
 
-        // Кнопка "Закрыть"
+        // Кнопка закрытия карточки
         const closeCardBtn = document.createElement('button');
         closeCardBtn.classList.add('card-btn', 'card-btn-close');
         closeCardBtn.textContent = 'Закрыть';
@@ -115,23 +66,43 @@ document.addEventListener('DOMContentLoaded', () => {
         card.appendChild(front);
         card.appendChild(back);
 
-        // Клик по карточке = переворот
+        // Обработчик клика по карточке
         card.addEventListener('click', function() {
-            if (!this.classList.contains('flipped')) {
-                this.classList.add('flipped');
-            }
+            this.classList.toggle('flipped');
         });
 
         cardsContainer.appendChild(card);
     });
 
-    // Закрытие модалки
+    // Кнопка "Открыть все"
+    openAllBtn.addEventListener('click', () => {
+        cardElements.forEach(card => {
+            card.classList.add('flipped');
+        });
+    });
+
+    // Кнопка "Закрыть все"
+    closeAllBtn.addEventListener('click', () => {
+        cardElements.forEach(card => {
+            card.classList.remove('flipped');
+        });
+    });
+
+    // Закрытие модального окна
     closeBtn.addEventListener('click', () => {
         modal.style.display = 'none';
     });
 
+    // Закрытие по клику вне изображения
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // Закрытие по ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
             modal.style.display = 'none';
         }
     });
