@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
         modalImage: document.getElementById('modal-image'),
         closeBtn: document.querySelector('.close-btn'),
         openAllBtn: document.getElementById('open-all'),
-        closeAllBtn: document.getElementById('close-all')
+        closeAllBtn: document.getElementById('close-all'),
+        prevBtn: document.getElementById('prev-btn'),
+        nextBtn: document.getElementById('next-btn')
     };
 
     // Проверка на существование элементов
@@ -31,6 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
             altPrefix: 'Город'
         }
     };
+
+    // Глобальные переменные для модального окна
+    let currentImageIndex = 0;
+    let currentImagesList = [];
+    let imageElements = [];
 
     // Создание одной карточки
     function createCard(img, section) {
@@ -63,9 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         zoomBtn.textContent = 'Увеличить';
         zoomBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            elements.modalImage.src = img;
-            elements.modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+            openModal(img, section);
         });
 
         const closeCardBtn = document.createElement('button');
@@ -97,6 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = createCard(img, section);
             container.appendChild(card);
         });
+        
+        // Собираем все элементы изображений для ленивой загрузки
+        imageElements = [...container.querySelectorAll('.card-back img')];
     }
 
     // Инициализация разделов
@@ -113,6 +121,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.dataset.section === 'section1' ? 'flex' : 'none';
             elements.section2.style.display = 
                 btn.dataset.section === 'section2' ? 'flex' : 'none';
+            
+            // Обновляем список изображений для текущего раздела
+            currentImagesList = config[btn.dataset.section].images;
+            initSection(document.getElementById(btn.dataset.section), btn.dataset.section);
         });
     });
 
@@ -130,18 +142,78 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.openAllBtn.addEventListener('click', () => toggleAllCards(true));
     elements.closeAllBtn.addEventListener('click', () => toggleAllCards(false));
 
-    // Управление модальным окном
-    elements.closeBtn.addEventListener('click', closeModal);
-    elements.modal.addEventListener('click', (e) => {
-        if (e.target === elements.modal) closeModal();
+    // Открытие модального окна
+    function openModal(img, section) {
+        currentImagesList = config[section].images;
+        currentImageIndex = currentImagesList.indexOf(img);
+        elements.modalImage.src = img;
+        elements.modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Навигация по изображениям в модальном окне
+    function navigateModal(direction) {
+        if (direction === 'next') {
+            currentImageIndex = (currentImageIndex + 1) % currentImagesList.length;
+        } else {
+            currentImageIndex = (currentImageIndex - 1 + currentImagesList.length) % currentImagesList.length;
+        }
+        elements.modalImage.src = currentImagesList[currentImageIndex];
+    }
+
+    elements.prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navigateModal('prev');
     });
 
+    elements.nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navigateModal('next');
+    });
+
+    // Закрытие модального окна
     function closeModal() {
         elements.modal.style.display = 'none';
         document.body.style.overflow = 'auto';
     }
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeModal();
+    elements.closeBtn.addEventListener('click', closeModal);
+    elements.modal.addEventListener('click', (e) => {
+        if (e.target === elements.modal) closeModal();
     });
+
+    // Навигация клавишами
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeModal();
+        } else if (elements.modal.style.display === 'flex') {
+            if (e.key === 'ArrowRight') {
+                navigateModal('next');
+            } else if (e.key === 'ArrowLeft') {
+                navigateModal('prev');
+            }
+        }
+    });
+
+    // Ленивая загрузка изображений
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                observer.unobserve(img);
+            }
+        });
+    }, { rootMargin: '100px' });
+
+    // Применяем observer ко всем изображениям
+    setTimeout(() => {
+        document.querySelectorAll('.card-back img').forEach(img => {
+            if (!img.src) {
+                img.dataset.src = img.src;
+                img.src = '';
+                observer.observe(img);
+            }
+        });
+    }, 1000);
 });

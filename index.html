@@ -3,29 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Интерактивные карточки</title>
+    <title>Flip-галерея</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Карточки с изображениями</h1>
+    <h1>Метафорические карты</h1>
     
     <div class="section-switcher">
-        <button class="section-btn active" data-section="section1">1 Раздел</button>
-        <button class="section-btn" data-section="section2">2 Раздел</button>
+        <button class="section-btn active" data-section="section1">Путеводная звезда</button>
+        <button class="section-btn" data-section="section2">Внутренний ребёнок</button>
     </div>
-
+    
     <div class="controls">
-        <button id="open-all" class="control-btn">Открыть все</button>
-        <button id="close-all" class="control-btn">Закрыть все</button>
+        <button class="control-btn" id="open-all">Открыть все</button>
+        <button class="control-btn" id="close-all">Закрыть все</button>
     </div>
-
-    <div class="cards-container" id="section1"></div>
-    <div class="cards-container" id="section2" style="display:none;"></div>
-
-    <div class="modal" id="modal" aria-hidden="true">
+    
+    <div class="cards-container" id="section1" style="display: flex;"></div>
+    <div class="cards-container" id="section2" style="display: none;"></div>
+    
+    <div class="modal" id="modal">
         <div class="modal-content">
-            <span class="close-btn" role="button" aria-label="Закрыть окно">&times;</span>
+            <span class="close-btn">&times;</span>
             <img id="modal-image" src="" alt="Увеличенное изображение">
+            <div class="modal-nav">
+                <button class="modal-nav-btn" id="prev-btn">❮</button>
+                <button class="modal-nav-btn" id="next-btn">❯</button>
+            </div>
         </div>
     </div>
 

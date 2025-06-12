@@ -7,11 +7,13 @@ body {
     background-color: #050505;
     padding: 20px;
     color: white;
+    margin: 0;
 }
 
 h1 {
     color: #fff;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 /* Переключатель разделов */
@@ -77,6 +79,7 @@ h1 {
     transform-style: preserve-3d;
     transition: transform 0.6s;
     cursor: pointer;
+    perspective: 1000px;
 }
 
 .card.flipped {
@@ -93,6 +96,7 @@ h1 {
     justify-content: center;
     align-items: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.6s;
 }
 
 .card-front {
@@ -189,6 +193,39 @@ h1 {
     font-size: 24px;
     cursor: pointer;
     color: white;
+    z-index: 2;
+}
+
+.modal-nav {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.modal-nav-btn {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+    z-index: 2;
+}
+
+.modal-nav-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
 }
 
 /* Адаптивность */
@@ -205,6 +242,12 @@ h1 {
     
     .section-btn, .control-btn {
         width: 100%;
+    }
+    
+    .modal-nav-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
     }
 }
 
